@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" href="assets/favicon.ico">
+    <link rel="icon" href="assets/favicon.png">
+    <meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
+    <meta content="Zabbix Cisco switch template generator" property="og:title">
+    <meta content="Zabbix Cisco switch template generator" property="title">
+    <meta content="Switch Cisco, Juniper, Arista, Dell, HP, TP-Link, Netgear, ... Zabbix template generator" property="description">
+    <meta content="Switch Cisco, Juniper, Arista, Dell, HP, TP-Link, Netgear, ... Zabbix template generator" property="og:description">
+    <meta content="appicon.png" property="og:image">
+    <title>Zabbix (Cisco, Juniper, Arista, HP, Dell, ...) Switch SNMP Template Generator - beta</title>
+    <link rel="apple-touch-icon-precomposed" sizes="64x64" href="/appicon.png">    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="stylesheets/style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="javascripts/FileSaver.min.js"></script>            
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'TODO', 'auto');
+      ga('send', 'pageview');    
+    </script>
+  </head>
+
+  <body>
+  <div style="background-color: red; color: white; width: 100%; font-weight: bold; padding: 3px; size: 150%; text-align: center; ">Early alpha version: Did you find problem => please fix it and create pull request</div>
+    <header>
+     
+      <h1>Zabbix Switch Template Generator alpha
+      <a href="http://www.monitoringartist.com" target="_blank" class="logo" title="Created by Monitoring Artist">
+        <img src="assets/Monitoring-Artist-logo.png">
+      </a>
+      </h1>
+                 
+    </header>
+
+    <section class="list"> 
+    <h2>Switch Configuration</h2>    
+    <div id="switch">
+    <div id="switch-name">Switch name</div>
+      <table class="table-editor" id="table1">
+        <colgroup class=""></colgroup>
+        <colgroup class=""></colgroup>
+        <colgroup class=""></colgroup>
+        <colgroup class=""></colgroup>
+        <colgroup class=""></colgroup>
+        <tbody>
+          <tr class="up">
+            <td>1</td>
+            <td>3</td>
+            <td>5</td>
+            <td>7</td>
+            <td>9</td>
+            <td>11</td>
+            <td>13</td>
+            <td>15</td>
+            <td>17</td>
+            <td>19</td>
+            <td>21</td>
+            <td>23</td>
+            <td>25</td>
+            <td>27</td>
+            <td>29</td>
+            <td>31</td>            
+          </tr>
+          <tr class="down">
+            <td>2</td>
+            <td>4</td>
+            <td>6</td>
+            <td>8</td>
+            <td>10</td>
+            <td>12</td>
+            <td>14</td>
+            <td>16</td>
+            <td>18</td>
+            <td>20</td>
+            <td>22</td>
+            <td>24</td>
+            <td>26</td>
+            <td>28</td>
+            <td>30</td>
+            <td>32</td>                        
+          </tr>
+        </tbody>
+      </table>
+            
+    </div>
+        <label for="device">Device</label>
+    <input type="device" name="device" id="device" class="input-search speedy-filter" placeholder="Switch name">
+    <input class="button small" id="addcol" type="button" value="Add ports" />
+    <input class="button small" id="remcol" type="button" value="Remove ports" />
+    <input class="button small" id="addrow" type="button" value="Add port row" />
+    <input class="button small" id="remrow" type="button" value="Remove port row" />    
+    <h2>Zabbix Template Configuration</h2>   
+      <label class="flabel" for="version">SNMP version:</label>
+       <select class="input-search finput" id="version" name="version">
+        <option value="1">v1</option>
+        <option value="4">v2</option>
+        <option value="6" selected="selected">v3</option>
+      </select>
+    <div class="clearer"></div>
+    <div id="hcommunity" style="display: none"> 
+      <label class="flabel" for="community">SNMP community:</label>
+      <input class="input-search finput" type="text" id="community" name="community" value="{$SNMP_COMMUNITY}">
+      <i class="fa fa-question-circle fhelp" title="Enter community. User macros are resolved in this field."></i>
+    </div>
+    <div class="clearer"></div>
+      <label class="flabel" for="port">SNMP port:</label>
+      <input class="input-search finput" type="text" id="port" name="port" value="161">
+      <i class="fa fa-question-circle fhelp" title="Enter device SNMP port. Usually 161."></i>
+    <div class="clearer"></div>
+    <div id="hcontext">    
+      <label class="flabel" for="context">Context name:</label>
+      <input class="input-search finput" type="text" id="context" name="context" value="">
+      <i class="fa fa-question-circle fhelp" title="Enter context name to identify item on SNMP subnet. Context name is supported for SNMPv3 items since Zabbix 2.2. User macros are resolved in this field"></i>
+    </div>      
+    <div class="clearer"></div>
+    <div id="hsecname">
+      <label class="flabel" for="secname">Security name:</label>
+      <input class="input-search finput" type="text" id="secname" name="secname" value="{$SNMP_SEC_NAME}">
+      <i class="fa fa-question-circle fhelp" title="Enter security name. User macros are resolved in this field."></i>
+    </div>
+    <div class="clearer"></div>
+    <div id="hseclevel">
+      <label class="flabel" for="seclevel">Security level:</label>
+      <select class="input-search finput" id="seclevel" name="seclevel" >
+       <option value="0" selected="selected">noAuthNoPriv</option>
+       <option value="1">AuthNoPriv</option>
+       <option value="2">AuthPriv</option>
+     </select>      
+      <i class="fa fa-question-circle fhelp" title="noAuthNoPriv - no authentication nor privacy protocols are used; AuthNoPriv - authentication protocol is used, privacy protocol is not; AuthPriv - both authentication and privacy protocols are used "></i>
+    </div>
+    <div class="clearer"></div>
+    <div id="hauthprot" style="display: none">    
+      <label class="flabel" for="authprot">Auth protocol:</label>
+      <select class="input-search finput" id="authprot" name="authprot" >
+       <option value="0" selected="selected">MD5</option>
+       <option value="1">SHA</option>
+      </select>        
+      <i class="fa fa-question-circle fhelp" title="MD5 or SHA"></i>
+    </div>
+    <div class="clearer"></div>
+    <div id="hauthpass" style="display: none"> 
+      <label class="flabel" for="authpass">Auth passphrase:</label>
+      <input class="input-search finput" type="text" id="authpass" name="authpass" value="{$SNMP_AUTH_PASS}">
+      <i class="fa fa-question-circle fhelp" title="Enter authentication passphrase. User macros are resolved in this field."></i>
+    </div>
+    <div class="clearer"></div>
+    <div id="hprivprot" style="display: none"> 
+      <label class="flabel" for="privprot">Privacy protocol:</label>
+      <select class="input-search finput" id="privprot" name="privprot" >
+       <option value="0" selected="selected">DES</option>
+       <option value="1">AES</option>
+      </select>      
+      <i class="fa fa-question-circle fhelp" title="DES or AES"></i>
+    </div>
+    <div class="clearer"></div>
+    <div id="hprivpass" style="display: none"> 
+      <label class="flabel" for="privpass">Privacy passphrase:</label>
+      <input class="input-search finput" type="text" id="privpass" name="privpass" value="{$SNMP_PRIV_PASS}">
+      <i class="fa fa-question-circle fhelp" title="Enter privacy passphrase. User macros are resolved in this field."></i>
+    </div>
+    <div class="clearer"></div>                                
+      <label class="flabel" for="interval">Check interval (sec):</label> <input class="input-search finput" type="text" id="interval" name="interval" value="60" size="3">
+    <div class="clearer"></div>
+    <h3>Items</h3>
+    <input type="checkbox" name="itstatus" id="itstatus" checked> <label for="itstatus">Port status</label><br />
+    <input type="checkbox" name="itbytes" id="itbytes" checked> <label for="itbytes">In/out bytes/s</label><br />
+    <input type="checkbox" name="iterrors" id="iterrors" checked> <label for="iterrors">Errors</label><br />
+    <input type="checkbox" name="itbroadcast" id="itbroadcast" checked> <label for="itbroadcast">Broadcast packets</label><br />
+    <input type="checkbox" name="itunicast" id="itunicast"> <label for="itunicast">Unicast packets</label><br />
+    <input type="checkbox" name="itmulticast" id="itmulticast"> <label for="itmulticast">Multicast packets</label><br />
+    <div id="cisco_feat">
+    <input type="checkbox" name="monitor" id="monitor"> <label for="monitor">Get CPU and memory usage, temperature status</label>
+    </div>
+    <h3>Triggers</h3>
+    <input type="checkbox" name="tgport" id="tgport"> <label for="tgport">Port is down</label><br>
+    <label class="flabel" for="errorstreshold">In/out errors &gt;:</label> <input class="input-search finput" type="text" id="errorstreshold" name="errorstreshold" value="" size="3">
+    <div class="clearer"></div>
+    <label class="flabel" for="cputreshold">CPU usage &gt;:</label> <input class="input-search finput" type="text" id="cputreshold" name="cputreshold" value="" size="3">
+    <div class="clearer"></div>    
+    <label class="flabel" for="memorytreshold">Memory load &gt;:</label> <input class="input-search finput" type="text" id="memorytreshold" name="memorytreshold" value="" size="3">
+    <div class="clearer"></div>
+    
+    <input class="button small" type="submit" value="Generate template" onclick="template();">    
+    
+    <h2>Notes</h2>
+    
+    <p>
+    SNMP Zabbix template is generated. No Zabbix low level discovery rules are 
+    used. You can still customize generated template in your Zabbix. 
+    Please use full HW device name. It will help to create presets for the most 
+    used switches.
+    </p>
+    
+    <h2>Documentation</h2>
+    
+    <a href="https://www.zabbix.com/documentation/2.4/manual/config/items/itemtypes/snmp" target="_blank">Zabbix doc - SNMP itemtype</a> / <a href="https://www.zabbix.com/documentation/2.4/manual/config/macros/usermacros" target="_blank">Zabbix doc - user macros</a>
+
+    </section>
+
+    <footer>
+      Created by <a href="http://www.monitoringartist.com" target="_blank" title="DevOps / Monitoring / Zabbix / Zenoss / Docker"><img src="assets/favicon.png"> Monitoring Artist</a>.
+    </footer>
+
+    <a href="https://github.com/monitoringartist/zabbix-switch-template-generator" target="_blank" class="forkme">
+      <img style="position: absolute; top: 0; right: 0; border: 0; width: 149px; height: 149px;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png">
+    </a>
+
+  </body>
+  <script src="javascripts/stuff.js"></script>
+</html>
